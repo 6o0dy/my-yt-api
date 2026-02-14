@@ -16,11 +16,13 @@ def get_download_link():
     if not url:
         return jsonify({"error": "لم يتم إرسال رابط"}), 400
 
-    # إعدادات مكتبة yt-dlp لاستخراج الرابط المباشر فقط بدون تحميل الفيديو على السيرفر
+    # إعدادات مكتبة yt-dlp مع إضافة خدعة تخطي حماية يوتيوب (التنكر كجهاز أندرويد)
     ydl_opts = {
         'format': 'best',
         'quiet': True,
         'skip_download': True,
+        'nocheckcertificate': True,
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
     }
 
     try:
